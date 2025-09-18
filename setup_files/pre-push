@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+ech "\n=======================pre-push conda env==================="
+conda env export -f env.yml
+
+# If new environment file is different, commit it
+if git diff --exit-code --quiet env.yml; then
+    echo "Conda environment not changed. No additional commit."
+else
+    echo "Conda environment changed. Commiting new env.yml"
+    git add env.yml
+    git commit -m "Updating conda environment"
+    echo 'You need to push again to push additional "Updating conda environment" commit.'
+    exit 1
+fi
