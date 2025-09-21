@@ -1,10 +1,8 @@
-import pygame
 import torch
+from DQN_model import DQN
 from gymnasium.wrappers import TimeLimit
 from matplotlib import pyplot as plt
-from pygame import K_ESCAPE, KEYDOWN, QUIT
 
-from DQN_model import DQN
 from environment.environment import InvertedPendulumEnv
 
 training_period = 250
@@ -20,7 +18,7 @@ env = InvertedPendulumEnv(render_mode="human")
 
 # Zbieranie statystyk
 # env = RecordEpisodeStatistics(env)
-env = TimeLimit(env, max_episode_steps=1000)
+env = TimeLimit(env, max_episode_steps=500)
 input_dim = env.observation_space.shape[0]
 output_dim = 3
 print(input_dim, output_dim)
@@ -34,12 +32,6 @@ reward_sum: float = 0
 rewards: list[float] = []
 while episode < max_episodes:
     episode += 1
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            break
-        elif event.type == KEYDOWN:
-            if event.key == K_ESCAPE:
-                episode = max_episodes
 
     action = dqn.get_action(state, training=True)
     # action -= 1
@@ -59,6 +51,6 @@ while episode < max_episodes:
 
 # dqn.target_net.save_weights("dqn_model.h5")
 env.close()
-torch.save(dqn.target_net, "full_model.pth")
+torch.save(dqn.target_net, "3_pos_out.pth")
 plt.plot(rewards)
 plt.show()

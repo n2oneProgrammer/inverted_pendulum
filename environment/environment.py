@@ -95,9 +95,8 @@ class InvertedPendulumEnv(gym.Env):  # type: ignore[misc]
         reward: float = 0
         for pole in self.pole:
             angle = (pole.body.angle * 180 / math.pi + 180) % 360 - 180
-            reward += 1 - abs(angle) / 90
-            reward *= 2
-            if angle > 10:
+            reward += 1 - abs(angle) / 45
+            if abs(angle) > 10:
                 break
 
         reward -= abs(x) / 2

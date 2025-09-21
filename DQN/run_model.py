@@ -1,14 +1,14 @@
 import pygame
+from DQN_model import DQN
 from pygame import K_ESCAPE, K_LEFT, K_RIGHT, KEYDOWN, QUIT
 
-from DQN_model import DQN
 from environment.environment import InvertedPendulumEnv
 
 env = InvertedPendulumEnv(render_mode="rgb_array")
 
 input_dim = env.observation_space.shape[0]
 output_dim = 3
-dqn = DQN(input_dim, output_dim, load_model="last_model.pth")
+dqn = DQN(input_dim, output_dim, load_model="3_pos_out.pth")
 
 state, info = env.reset()
 running = True

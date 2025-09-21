@@ -6,7 +6,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 
-from ReplayMemory import ReplayMemory
+from utils.ReplayMemory import ReplayMemory
 
 
 class DQN_Model(nn.Module):  # type: ignore[misc]
